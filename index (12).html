@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+
+<html lang="ms">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pentaksiran Kemasukan Sekolah Khusus (PKSK) - Pengetahuan Am Interaktif</title>
+
+    <!-- Tailwind CSS -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+
+                    },
+
+                    colors: {
+
+                        brand: {
+
+                            50: '#f0f7ff',
+
+                            100: '#e0effe',
+
+                            500: '#0284c7',
+
+                            600: '#0284c7',
+
+                            700: '#0369a1',
+
+                            800: '#075985',
+
+                            900: '#0c4a6e',
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+
+
+    <style>
+
+        body {
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            background-color: #f8fafc;
+
+        }
+
+
+
+        .shake-anim {
+
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+
+        }
+
+
+
+        @keyframes shake {
+
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+
+        }
+
+
+
+        .bounce-anim {
+
+            animation: bounce 0.5s ease;
+
+        }
+
+
+
+        @keyframes bounce {
+
+            0%, 100% { transform: translateY(0); }
+
+            50% { transform: translateY(-10px); }
+
+        }
+
+
+
+        .glow-effect {
+
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.35);
+
+        }
+
+
+
+        /* Custom scrollbar for question grid */
+
+        ::-webkit-scrollbar {
+
+            width: 6px;
+
+            height: 6px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: #f1f5f9;
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #cbd5e1;
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #94a3b8;
+
+        }
+
+    </style>
+
+</head>
+
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between antialiased">
+
+
+
+    <!-- Header / Navbar -->
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+
+            <div class="flex items-center space-x-3">
+
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md font-bold text-lg">
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                </div>
+
+                <div>
+
+                    <h1 class="font-extrabold text-slate-900 text-base sm:text-lg leading-tight">PKSK Pengetahuan Am</h1>
+
+                    <p class="text-xs text-slate-500 font-medium">Modul Latihan Guru Pakar</p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Controls (Sound & Restart) -->
+
+            <div class="flex items-center space-x-2">
+
+                <button id="soundToggleBtn" onclick="toggleSound()" class="p-2 sm:px-3 sm:py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition flex items-center space-x-2 text-sm font-semibold">
+
+                    <i id="soundIcon" class="fa-solid fa-volume-high text-sky-600"></i>
+
+                    <span class="hidden sm:inline" id="soundLabel">Bunyi On</span>
+
+                </button>
+
+                <button onclick="confirmRestart()" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center space-x-2 text-sm font-semibold">
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    <span class="hidden sm:inline">Mula Semula</span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- Main Content Area -->
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow">
+
+        <!-- TOP STATUS BAR: Progress & Score -->
+
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm mb-6">
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+
+                <div>
+
+                    <span id="categoryBadge" class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800 mb-1">
+
+                        Tokoh Pejuang Negara
+
+                    </span>
+
+                    <h2 id="questionNumberText" class="text-xl sm:text-2xl font-bold text-slate-800">
+
+                        Soalan 1 daripada 30
+
+                    </h2>
+
+                </div>
+
+
+
+                <!-- Stats summary -->
+
+                <div class="flex items-center space-x-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 text-sm">
+
+                    <div class="text-center">
+
+                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Markah</span>
+
+                        <span id="currentScore" class="text-lg font-black text-emerald-600">0</span>
+
+                    </div>
+
+                    <div class="h-8 w-px bg-slate-200"></div>
+
+                    <div class="text-center">
+
+                        <span class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Tepat 1st Try</span>
+
+                        <span id="firstTryCount" class="text-lg font-black text-sky-600">0</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Progress Bar -->
+
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+
+                <div id="progressBar" class="bg-sky-600 h-full transition-all duration-300 ease-out" style="width: 3.33%;"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- QUIZ CONTAINER -->
+
+        <div id="quizCard" class="bg-white rounded-2xl border border-slate-200 shadow-md p-5 sm:p-8 relative">
+
+            <!-- Attempt Indicator Banner -->
+
+            <div id="attemptBanner" class="mb-4 inline-flex items-center space-x-2 text-xs font-bold px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                <span id="attemptText">Percubaan 1 daripada 2</span>
+
+            </div>
+
+
+
+            <!-- Question Text -->
+
+            <h3 id="questionText" class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+
+                Loading question...
+
+            </h3>
+
+
+
+            <!-- Options Grid -->
+
+            <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-6">
+
+                <!-- Dynamic Options appended here -->
+
+            </div>
+
+
+
+            <!-- Feedback Card (Show upon answering) -->
+
+            <div id="feedbackBox" class="hidden rounded-xl p-4 sm:p-5 mb-6 transition-all duration-300">
+
+                <div class="flex items-start space-x-3">
+
+                    <div id="feedbackIconBox" class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">
+
+                        <i id="feedbackIcon" class="fa-solid"></i>
+
+                    </div>
+
+                    <div class="flex-grow">
+
+                        <h4 id="feedbackTitle" class="font-bold text-base mb-1"></h4>
+
+                        <p id="feedbackDetail" class="text-sm leading-relaxed mb-2"></p>
+
+                        <!-- Explanation box from Guru Pakar -->
+
+                        <div id="explanationBox" class="hidden mt-3 p-3 bg-white/70 border border-slate-200 rounded-lg text-xs sm:text-sm text-slate-700">
+
+                            <span class="font-bold text-slate-900 block mb-1">💡 Ulasan Guru Pakar:</span>
+
+                            <span id="explanationText"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Navigation Bar inside Question Card -->
+
+            <div class="flex items-center justify-between border-t border-slate-100 pt-5 mt-2">
+
+                <button id="prevBtn" onclick="prevQuestion()" disabled class="px-4 py-2 rounded-xl text-slate-400 font-semibold text-sm cursor-not-allowed hover:bg-slate-100 transition flex items-center space-x-2">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    <span>Sebelumnya</span>
+
+                </button>
+
+
+
+                <div class="flex space-x-2">
+
+                    <button id="gridToggleBtn" onclick="toggleGridModal()" class="px-3 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition text-xs sm:text-sm font-semibold flex items-center space-x-1.5">
+
+                        <i class="fa-solid fa-th"></i>
+
+                        <span class="hidden sm:inline">Peta Soalan</span>
+
+                    </button>
+
+                    <button id="nextBtn" onclick="nextQuestion()" disabled class="px-5 py-2.5 rounded-xl bg-slate-200 text-slate-400 font-bold text-sm cursor-not-allowed transition flex items-center space-x-2">
+
+                        <span>Seterusnya</span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-- RESULTS SCREEN (Hidden initially) -->
+
+        <div id="resultsCard" class="hidden bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-10 text-center">
+
+            <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-3xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-inner">
+
+                <i class="fa-solid fa-trophy"></i>
+
+            </div>
+
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Selesai! Tahniah!</h2>
+
+            <p class="text-slate-600 mb-6 max-w-md mx-auto text-sm sm:text-base">Anda telah menyempurnakan kesemua 30 Soalan Pengetahuan Am PKSK.</p>
+
+
+
+            <!-- Score Summary Cards -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto mb-8">
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+
+                    <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Jumlah Markah</span>
+
+                    <span id="finalScore" class="text-3xl font-black text-sky-600">0 / 60</span>
+
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+
+                    <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Percubaan Pertama</span>
+
+                    <span id="finalFirstTry" class="text-3xl font-black text-emerald-600">0 / 30</span>
+
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+
+                    <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Tahap Penguasaan</span>
+
+                    <span id="finalGrade" class="text-lg font-extrabold text-indigo-600">Cemerlang</span>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="guruComment" class="p-4 bg-sky-50 border border-sky-200 rounded-xl max-w-xl mx-auto text-sky-900 text-sm mb-8 text-left">
+
+                <!-- Guru comment inserted here -->
+
+            </div>
+
+
+
+            <!-- Action buttons -->
+
+            <div class="flex flex-wrap justify-center gap-3">
+
+                <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm shadow-lg shadow-sky-200 transition flex items-center space-x-2">
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    <span>Cuba Lagi Sekali</span>
+
+                </button>
+
+                <button onclick="toggleGridModal()" class="px-6 py-3 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-sm transition flex items-center space-x-2">
+
+                    <i class="fa-solid fa-list-check"></i>
+
+                    <span>Semak Jawapan</span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+    <!-- Modal Peta Soalan (Question Selector) -->
+
+    <div id="gridModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform transition-all">
+
+            <div class="flex items-center justify-between mb-4">
+
+                <h3 class="text-lg font-bold text-slate-900">Peta Soalan (1 - 30)</h3>
+
+                <button onclick="toggleGridModal()" class="text-slate-400 hover:text-slate-600 p-1">
+
+                    <i class="fa-solid fa-xmark text-xl"></i>
+
+                </button>
+
+            </div>
+
+            <p class="text-xs text-slate-500 mb-4">Warna hijau = Betul Percubaan 1, Kuning = Betul Percubaan 2, Merah = Salah, Kelabu = Belum Jawab.</p>
+
+
+
+            <div id="questionGridBtns" class="grid grid-cols-6 gap-2 mb-6 max-h-64 overflow-y-auto p-1">
+
+                <!-- Buttons dynamically generated -->
+
+            </div>
+
+
+
+            <button onclick="toggleGridModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition">
+
+                Tutup Peta Soalan
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Footer -->
+
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+
+        <p>© Modul Pentaksiran Kemasukan Sekolah Khusus (PKSK) — Pengetahuan Am Tokoh & Pencapaian Malaysia</p>
+
+    </footer>
+
+
+
+    <script>
+
+        /* ===================================================================
+
+           QUESTION BANK (30 PKSK GENERAL KNOWLEDGE QUESTIONS)
+
+           =================================================================== */
+
+        const questionsData = [
+
+            {
+
+                id: 1,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Siapakah pahlawan Pahang yang memimpin perjuangan menentang British bersama-sama Dato' Bahaman dan Tok Gajah di Mat Kilau?",
+
+                options: ["Rentap", "Mat Kilau", "Dol Said", "Tok Janggut"],
+
+                correct: 1,
+
+                explanation: "Mat Kilau bersama bapanya Tok Gajah dan Dato' Bahaman merupakan pejuang Pahang yang gigih menentang pencerobohan British di Pahang."
+
+            },
+
+            {
+
+                id: 2,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Pejuang dari Sarawak yang terkenal dengan slogan 'Agi Idup, Agi Nsumbang' (Selagi Hidup, Selagi Berjuang) dalam menentang penjajahan Brooke ialah...",
+
+                options: ["Rosli Dhoby", "Mat Salleh", "Rentap", "Antanom"],
+
+                correct: 2,
+
+                explanation: "Rentap (Libau) ialah pahlawan Iban yang memimpin penentangan terhadap Rajah James Brooke di Bukit Sadok."
+
+            },
+
+            {
+
+                id: 3,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Siapakah tokoh pejuang Kelantan yang gugur syahid dalam pertempuran menentang British di Pasir Puteh pada tahun 1915?",
+
+                options: ["Tok Janggut", "Haji Abdul Rahman Limbong", "Dato' Maharajalela", "Yamtuan Antah"],
+
+                correct: 0,
+
+                explanation: "Tok Janggut (Haji Mohd Hassan bin Munas) menentang pelaksanaan sistem cukai British di Pasir Puteh, Kelantan."
+
+            },
+
+            {
+
+                id: 4,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Penghulu Naning yang mengetuai penentangan terhadap pihak British kerana enggan membayar cukai satu persepuluh hasil bumi pada tahun 1831 ialah...",
+
+                options: ["Dol Said", "Dato' Bahaman", "Mat Salleh", "Tok Janggut"],
+
+                correct: 0,
+
+                explanation: "Dol Said (Dato' Naning) mempertahankan kedaulatan Naning daripada dikuasai British dalam Perang Naning."
+
+            },
+
+            {
+
+                id: 5,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Siapakah pahlawan Perak yang mengetuai pakatan pembunuhan Residen British pertama Perak, J.W.W. Birch di Pasir Salak pada tahun 1875?",
+
+                options: ["Raja Abdullah", "Dato' Maharajalela", "Ngah Ibrahim", "Sultan Ismail"],
+
+                correct: 1,
+
+                explanation: "Dato' Maharajalela bersama Pandak Lam dan pembesar Perak lain bertindak menentang J.W.W. Birch yang mencampuri adat resam dan pentadbiran tempatan."
+
+            },
+
+            {
+
+                id: 6,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Pahlawan terkenal di Sabah yang membina kubu pertahanan kuat di Tambunan bagi menentang Syarikat Borneo Utara British (SBUB) ialah...",
+
+                options: ["Antanom", "Mat Salleh", "Rentap", "Tun Datu Mustapha"],
+
+                correct: 1,
+
+                explanation: "Datu Paduka Mohammad Salleh (Mat Salleh) memimpin penentangan terhadap SBUB akibat cukai berat dan pencerobohan kawasan."
+
+            },
+
+            {
+
+                id: 7,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Pejuang muda Sarawak daripada kumpulan 'Rukun 13' yang menikam Gabenor British Sir Duncan Stewart demi mempertahankan kemerdekaan tanah air ialah...",
+
+                options: ["Rosli Dhoby", "Rentap", "Kanang anak Langkau", "Syed Masahor"],
+
+                correct: 0,
+
+                explanation: "Rosli Dhoby menyerahkan jiwanya demi menentang penyerahan Sarawak kepada Mahkota British pada tahun 1949."
+
+            },
+
+            {
+
+                id: 8,
+
+                category: "Tokoh Pejuang Negara",
+
+                question: "Tokoh agama dan pejuang di Terengganu yang memimpin gerakan tani menentang peraturan tanah dan cukai British pada tahun 1928 ialah...",
+
+                options: ["Haji Abdul Rahman Limbong", "Tok Janggut", "Imam Rasu", "Syed Syaikh al-Hadi"],
+
+                correct: 0,
+
+                explanation: "Haji Abdul Rahman Limbong memperjuangkan hak petani Terengganu yang tertindas oleh undang-undang tanah British."
+
+            },
+
+            {
+
+                id: 9,
+
+                category: "Tokoh Kemerdekaan",
+
+                question: "Siapakah yang diberi gelaran 'Bapa Kemerdekaan' dan merupakan Perdana Menteri Malaysia yang pertama?",
+
+                options: ["Tun Abdul Razak", "Tunku Abdul Rahman Putra Al-Haj", "Tun Hussein Onn", "Tun Dr. Mahathir"],
+
+                correct: 1,
+
+                explanation: "Tunku Abdul Rahman memimpin rombongan kemerdekaan ke London dan mengisytiharkan Kemerdekaan Tanah Melayu pada 31 Ogos 1957."
+
+            },
+
+            {
+
+                id: 10,
+
+                category: "Tokoh Kemerdekaan",
+
+                question: "Siapakah tokoh wanita yang rela menyerahkan gelang emas kesayangannya bagi membiayai tambang Tunku Abdul Rahman ke London untuk melaungkan kemerdekaan?",
+
+                options: ["Tun Fatimah Hashim", "Tan Sri Aisha Ghani", "Siti Rahmah Kassim", "Khatijah Sidek"],
+
+                correct: 2,
+
+                explanation: "Siti Rahmah Kassim mengikrarkan gelang emas pengantinnya sebagai dorongan dana rombongan kemerdekaan ke London."
+
+            },
+
+            {
+
+                id: 11,
+
+                category: "Tokoh Kemerdekaan",
+
+                question: "Tokoh kaum Cina yang berkhidmat sebagai Menteri Kewangan Pertama Tanah Melayu dan turut serta dalam Rombongan Kemerdekaan 1956 ialah...",
+
+                options: ["Tun Tan Cheng Lock", "Tun H.S. Lee", "Tun Lim Chong Eu", "Tan Sri Tan Siew Sin"],
+
+                correct: 1,
+
+                explanation: "Tun H.S. Lee (Henry Lee Hau Shik) memainkan peranan penting dalam perpaduan perikatan dan kemerdekaan negara."
+
+            },
+
+            {
+
+                id: 12,
+
+                category: "Tokoh Kemerdekaan",
+
+                question: "Presiden MIC kelima yang memperjuangkan kebajikan pekerja estate dan menyertai rombongan kemerdekaan ke London ialah...",
+
+                options: ["Tun V.T. Sambanthan", "Tan Sri K. Pathmanaban", "Tun S. Samy Vellu", "Dato' E.E.C. Thuraisingham"],
+
+                correct: 0,
+
+                explanation: "Tun V.T. Sambanthan merupakan salah seorang pengasas perpaduan tiga kaum utama dalam mencapai kemerdekaan."
+
+            },
+
+            {
+
+                id: 13,
+
+                category: "Tokoh Pentadbiran",
+
+                question: "Perdana Menteri Malaysia kedua yang digelar 'Bapa Pembangunan' kerana melancarkan Dasar Ekonomi Baru (DEB) ialah...",
+
+                options: ["Tunku Abdul Rahman", "Tun Abdul Razak Hussein", "Tun Hussein Onn", "Tun Abdullah Badawi"],
+
+                correct: 1,
+
+                explanation: "Tun Abdul Razak memodenkan luar bandar menerusi FELDA dan memulihkan kestabilan negara melalui MAGERAN."
+
+            },
+
+            {
+
+                id: 14,
+
+                category: "Tokoh Pentadbiran",
+
+                question: "Siapakah Perdana Menteri Malaysia ketiga yang mendapat julukan 'Bapa Perpaduan'?",
+
+                options: ["Tun Hussein Onn", "Tun Abdul Razak", "Tun Dr. Mahathir", "Tun Hussein Ahmad"],
+
+                correct: 0,
+
+                explanation: "Tun Hussein Onn terkenal dengan penekanan tinggi terhadap perpaduan kaum dan integriti pentadbiran."
+
+            },
+
+            {
+
+                id: 15,
+
+                category: "Angkasawan & Sains",
+
+                question: "Siapakah rakyat Malaysia pertama yang meluncur ke angkasa lepas menuju ke Stesen Angkasa Antarabangsa (ISS) pada 10 Oktober 2007?",
+
+                options: ["Mejar Dr. Faiz Khaleed", "Datuk Dr. Sheikh Muszaphar Shukor", "Prof. Mazlan Othman", "Ir. Dr. Ahmad Sabirin"],
+
+                correct: 1,
+
+                explanation: "Datuk Dr. Sheikh Muszaphar Shukor berlepas naik kapstel Soyuz TMA-11 dari Cosmodrome Baikonur, Kazakhstan."
+
+            },
+
+            {
+
+                id: 16,
+
+                category: "Angkasawan & Sains",
+
+                question: "Pusat pelancaran roket luar angkasa tempat berlepasnya angkasawan pertama Malaysia di Kazakhstan dinamakan...",
+
+                options: ["Kennedy Space Center", "Baikonur Cosmodrome", "Guiana Space Centre", "Jiuquan Launch Center"],
+
+                correct: 1,
+
+                explanation: "Cosmodrome Baikonur di Kazakhstan ialah tapak pelancaran roket Soyuz TMA-11 bagi Program Angkasawan Negara."
+
+            },
+
+            {
+
+                id: 17,
+
+                category: "Jaguh Sukan Negara",
+
+                question: "Legenda skuasy wanita negara yang memegang rekod Juara Dunia sebanyak 8 kali dan berturut-turut mentakrifkan sukan skuasy dunia ialah...",
+
+                options: ["Datuk Nicol Ann David", "Low Wee Wern", "Sivasangari Subramaniam", "Delia Arnold"],
+
+                correct: 0,
+
+                explanation: "Datuk Nicol Ann David pernah menduduki tangga Pertama Dunia selama 108 bulan berturut-turut."
+
+            },
+
+            {
+
+                id: 18,
+
+                category: "Jaguh Sukan Negara",
+
+                question: "Pemain badminton perseorangan lelaki negara yang meraih 3 pingat perak Sukan Olimpik serta bergelar legenda dunia ialah...",
+
+                options: ["Datuk Misbun Sidek", "Datuk Wira Lee Chong Wei", "Hafiz Hashim", "Lee Zii Jia"],
+
+                correct: 1,
+
+                explanation: "Datuk Wira Lee Chong Wei memenangi pingat perak Olimpik Beijing 2008, London 2012, dan Rio 2016."
+
+            },
+
+            {
+
+                id: 19,
+
+                category: "Jaguh Sukan Negara",
+
+                question: "Legenda bola sepak negara bergelar 'Supermokh' yang menjaringkan 89 gol antarabangsa untuk skuad Harimau Malaya ialah...",
+
+                options: ["Dato' Soh Chin Ann", "Datuk Santokh Singh", "Dato' Mokhtar Dahari", "Zainal Abidin Hassan"],
+
+                correct: 2,
+
+                explanation: "Dato' Mokhtar Dahari diiktiraf FIFA antara penjaring gol antarabangsa tertinggi sepanjang zaman."
+
+            },
+
+            {
+
+                id: 20,
+
+                category: "Jaguh Sukan Negara",
+
+                question: "Pelumba basikal trek negara yang gelaran 'The Pocket Rocketman' dan menjuarai Kejohanan Dunia Keirin serta perak Olimpik Tokyo ialah...",
+
+                options: ["Dato' Mohd Azizulhasni Awang", "Fatehah Mustapa", "Shah Firdaus Sahrom", "Josiah Ng"],
+
+                correct: 0,
+
+                explanation: "Dato' Mohd Azizulhasni Awang merupakan kebanggaan negara dalam acara keirin trek berbasikal."
+
+            },
+
+            {
+
+                id: 21,
+
+                category: "Jaguh Sukan Negara",
+
+                question: "Ratu terjun negara yang menjadi wanita pertama Malaysia meraih pingat di Sukan Olimpik (London 2012) ialah...",
+
+                options: ["Dato' Pandelela Rinong", "Cheong Jun Hoong", "Leong Mun Yee", "Nur Dhabitah Sabri"],
+
+                correct: 0,
+
+                explanation: "Dato' Pandelela Rinong memenangi pingat gangsa dalam acara 10m platform individu di Olimpik London 2012."
+
+            },
+
+            {
+
+                id: 22,
+
+                category: "Jaguh Sukan Paralimpik",
+
+                question: "Atlet para lompat jauh negara (kategori T20) yang meraih emas Paralimpik Rio 2016 dan Tokyo 2020 serta memecahkan rekod dunia ialah...",
+
+                options: ["Abdul Latif Romly", "Ziyad Zolkefli", "Mohamad Ridzuan Puzi", "Bonnie Bunyau Gustin"],
+
+                correct: 0,
+
+                explanation: "Abdul Latif Romly melakar prestasi luar biasa membawa nama Malaysia ke persada dunia acara lompat jauh para."
+
+            },
+
+            {
+
+                id: 23,
+
+                category: "Jaguh Sukan Paralimpik",
+
+                question: "Atlet angkat berat para (powerlifting) Sarawak yang memenangi pingat emas Paralimpik Tokyo 2020 & Paris 2024 serta memecahkan rekod dunia ialah...",
+
+                options: ["Bonnie Bunyau Gustin", "Ziyad Zolkefli", "Cheah Liek Hou", "Hashin bin Abu"],
+
+                correct: 0,
+
+                explanation: "Bonnie Bunyau Gustin merupakan jaguh angkat berat para dunia yang memegang rekod dunia kategori 72kg."
+
+            },
+
+            {
+
+                id: 24,
+
+                category: "Kebangsaan & Simbol",
+
+                question: "Apakah nama Bunga Kebangsaan Malaysia yang dipilih oleh Tunku Abdul Rahman pada tahun 1960?",
+
+                options: ["Bunga Orkid", "Bunga Raya", "Bunga Cempaka", "Bunga Mawar"],
+
+                correct: 1,
+
+                explanation: "Bunga Raya (Hibiscus rosa-sinensis) dipilih kerana lima kelopaknya melambangkan lima prinsip Rukun Negara."
+
+            },
+
+            {
+
+                id: 25,
+
+                category: "Kebangsaan & Simbol",
+
+                question: "Prinsip ketiga dalam Rukun Negara yang diisytiharkan pada 31 Ogos 1970 ialah...",
+
+                options: ["Kepercayaan kepada Tuhan", "Kesetiaan kepada Raja dan Negara", "Keluhuran Perlembagaan", "Kedaulatan Undang-undang"],
+
+                correct: 2,
+
+                explanation: "Susunan Rukun Negara: 1. Kepercayaan kepada Tuhan, 2. Kesetiaan kepada Raja dan Negara, 3. Keluhuran Perlembagaan, 4. Kedaulatan Undang-undang, 5. Kesopanan dan Kesusilaan."
+
+            },
+
+            {
+
+                id: 26,
+
+                category: "Pencapaian Negara",
+
+                question: "Kereta nasional pertama Malaysia yang dilancarkan secara rasmi oleh Perdana Menteri pada tahun 1985 ialah...",
+
+                options: ["Proton Saga", "Proton Wira", "Perodua Kancil", "Proton Iswara"],
+
+                correct: 0,
+
+                explanation: "Proton Saga menandakan bermulanya industri pembuatan automobil negara secara komersial."
+
+            },
+
+            {
+
+                id: 27,
+
+                category: "Pencapaian Negara",
+
+                question: "Menara berkembar tertinggi di dunia yang menjadi mercu tanda kebanggaan Malaysia di Kuala Lumpur ialah...",
+
+                options: ["Menara Kuala Lumpur", "Menara Berkembar Petronas (KLCC)", "Menara Merdeka 118", "Menara Exchange 106"],
+
+                correct: 1,
+
+                explanation: "Menara Berkembar Petronas (PETRONAS Twin Towers) siap dibina pada tahun 1998 dan pernah menjadi bangunan tertinggi di dunia."
+
+            },
+
+            {
+
+                id: 28,
+
+                category: "Sastera & Seni",
+
+                question: "Sasterawan Negara yang mencipta senikata lagu kebangsaan 'Negaraku' dan puisi-puisi patriotik terbilang ialah...",
+
+                options: ["Usman Awang", "A. Samad Said", "Keris Mas", "Shahnon Ahmad"],
+
+                correct: 0,
+
+                explanation: "Usman Awang (Tongkat Warrant) terkenal dengan karya-karya kemanusiaan dan kebangsaan yang indah."
+
+            },
+
+            {
+
+                id: 29,
+
+                category: "Pencapaian Pertahanan",
+
+                question: "Kapal selam pertama milik Tentera Laut Diraja Malaysia (TLDM) kelas Scorpène yang tiba di tanah air pada tahun 2009 dinamakan...",
+
+                options: ["KD Tun Razak", "KD Tunku Abdul Rahman", "KD Hang Tuah", "KD Mahawangsa"],
+
+                correct: 1,
+
+                explanation: "KD Tunku Abdul Rahman ialah kapal selam pertama Malaysia yang mengukuhkan keupayaan pertahanan maritim negara."
+
+            },
+
+            {
+
+                id: 30,
+
+                category: "Tokoh Kemerdekaan Sabah",
+
+                question: "Pemimpin utama Sabah yang digelar 'Bapa Kemerdekaan Sabah' dan berperanan penting membawa Sabah menyertai pembentukan Malaysia 1963 ialah...",
+
+                options: ["Tun Datu Mustapha bin Datu Harun", "Tun Fuad Stephens", "Tan Sri Harris Salleh", "Tun Pairin Kitingan"],
+
+                correct: 0,
+
+                explanation: "Tun Datu Mustapha merupakan Yang di-Pertua Negeri Sabah pertama dan Ketua Menteri Sabah ketiga."
+
+            }
+
+        ];
+
+
+
+        // State variables
+
+        let currentIndex = 0;
+
+        let attemptsState = new Array(questionsData.length).fill(0); // 0 = not attempted, 1 = 1st attempt done, 2 = completed
+
+        let userChoices = new Array(questionsData.length).fill(null); // Option index chosen
+
+        let scores = new Array(questionsData.length).fill(0); // Score: 2 (1st try), 1 (2nd try), 0 (failed)
+
+        let firstTrySuccess = new Array(questionsData.length).fill(false);
+
+        let isSoundEnabled = true;
+
+
+
+        /* ===================================================================
+
+           WEB AUDIO API - SYNTHESIZING SOUND EFFECTS (NO EXTERNAL AUDIO URLS)
+
+           =================================================================== */
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        let audioCtx = null;
+
+
+
+        function initAudio() {
+
+            if (!audioCtx) {
+
+                audioCtx = new AudioContext();
+
+            }
+
+            if (audioCtx.state === 'suspended') {
+
+                audioCtx.resume();
+
+            }
+
+        }
+
+
+
+        function toggleSound() {
+
+            isSoundEnabled = !isSoundEnabled;
+
+            const icon = document.getElementById('soundIcon');
+
+            const label = document.getElementById('soundLabel');
+
+            if (isSoundEnabled) {
+
+                icon.className = 'fa-solid fa-volume-high text-sky-600';
+
+                label.innerText = 'Bunyi On';
+
+            } else {
+
+                icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+
+                label.innerText = 'Bunyi Off';
+
+            }
+
+        }
+
+
+
+        // 1. WARNING SOUND (Bunyi Amaran apabila jawapan salah)
+
+        function playWarningSound() {
+
+            if (!isSoundEnabled) return;
+
+            initAudio();
+
+            try {
+
+                const osc = audioCtx.createOscillator();
+
+                const gain = audioCtx.createGain();
+
+
+
+                osc.type = 'sawtooth';
+
+                osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+
+                osc.frequency.exponentialRampToValueAtTime(90, audioCtx.currentTime + 0.3);
+
+
+
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+
+
+
+                osc.connect(gain);
+
+                gain.connect(audioCtx.destination);
+
+
+
+                osc.start();
+
+                osc.stop(audioCtx.currentTime + 0.3);
+
+            } catch (e) {
+
+                console.log("Audio play error", e);
+
+            }
+
+        }
+
+
+
+        // 2. APPLAUSE SOUND (Bunyi Tepukan & Sorakan apabila jawapan betul)
+
+        function playApplauseSound() {
+
+            if (!isSoundEnabled) return;
+
+            initAudio();
+
+            try {
+
+                // Generate synthesized applause (noise bursts + celebratory chime)
+
+                const now = audioCtx.currentTime;
+
+                // Happy Chime melody (C5, E5, G5, C6)
+
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+
+                notes.forEach((freq, idx) => {
+
+                    const osc = audioCtx.createOscillator();
+
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'triangle';
+
+                    osc.frequency.value = freq;
+
+
+
+                    const startTime = now + (idx * 0.08);
+
+                    gain.gain.setValueAtTime(0, startTime);
+
+                    gain.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
+
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+
+
+
+                    osc.connect(gain);
+
+                    gain.connect(audioCtx.destination);
+
+
+
+                    osc.start(startTime);
+
+                    osc.stop(startTime + 0.45);
+
+                });
+
+
+
+                // Clapping noise simulation
+
+                const bufferSize = audioCtx.sampleRate * 1.2; // 1.2 seconds
+
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+
+                const data = buffer.getChannelData(0);
+
+                for (let i = 0; i < bufferSize; i++) {
+
+                    data[i] = Math.random() * 2 - 1;
+
+                }
+
+
+
+                const noise = audioCtx.createBufferSource();
+
+                noise.buffer = buffer;
+
+
+
+                // Bandpass filter to make noise sound like hands clapping
+
+                const filter = audioCtx.createBiquadFilter();
+
+                filter.type = 'bandpass';
+
+                filter.frequency.value = 1200;
+
+                filter.Q.value = 1.0;
+
+
+
+                const gainNode = audioCtx.createGain();
+
+                gainNode.gain.setValueAtTime(0.15, now);
+
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+
+
+                noise.connect(filter);
+
+                filter.connect(gainNode);
+
+                gainNode.connect(audioCtx.destination);
+
+
+
+                noise.start(now);
+
+                noise.stop(now + 1.2);
+
+
+
+            } catch (e) {
+
+                console.log("Audio play error", e);
+
+            }
+
+        }
+
+
+
+        /* ===================================================================
+
+           UI RENDERING FUNCTIONS
+
+           =================================================================== */
+
+        function renderQuestion() {
+
+            const q = questionsData[currentIndex];
+
+            const currentAttempt = attemptsState[currentIndex];
+
+
+
+            // Update Header Info
+
+            document.getElementById('categoryBadge').innerText = q.category;
+
+            document.getElementById('questionNumberText').innerText = `Soalan ${currentIndex + 1} daripada ${questionsData.length}`;
+
+            document.getElementById('questionText').innerText = `${q.id}. ${q.question}`;
+
+
+
+            // Update Progress Bar
+
+            const pct = ((currentIndex + 1) / questionsData.length) * 100;
+
+            document.getElementById('progressBar').style.width = `${pct}%`;
+
+
+
+            // Attempt Banner Text
+
+            const attemptBanner = document.getElementById('attemptBanner');
+
+            const attemptText = document.getElementById('attemptText');
+
+            if (currentAttempt === 0) {
+
+                attemptBanner.className = "mb-4 inline-flex items-center space-x-2 text-xs font-bold px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200";
+
+                attemptText.innerText = "Peluang: Percubaan 1 daripada 2";
+
+            } else if (currentAttempt === 1) {
+
+                attemptBanner.className = "mb-4 inline-flex items-center space-x-2 text-xs font-bold px-3 py-1.5 rounded-lg bg-orange-50 text-orange-800 border border-orange-200";
+
+                attemptText.innerText = "Peluang: Percubaan Ke-2 (Terakhir)";
+
+            } else {
+
+                attemptBanner.className = "mb-4 inline-flex items-center space-x-2 text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200";
+
+                attemptText.innerText = "Soalan Telah Selesai Dijawab";
+
+            }
+
+
+
+            // Options rendering
+
+            const container = document.getElementById('optionsContainer');
+
+            container.innerHTML = '';
+
+
+
+            const optionLetters = ['A', 'B', 'C', 'D'];
+
+
+
+            q.options.forEach((opt, idx) => {
+
+                const btn = document.createElement('button');
+
+                btn.id = `optBtn_${idx}`;
+
+                let baseClasses = "p-4 rounded-xl text-left border-2 transition-all flex items-start space-x-3 w-full font-medium text-sm sm:text-base cursor-pointer relative ";
+
+                // If question completed
+
+                if (currentAttempt === 2) {
+
+                    btn.disabled = true;
+
+                    if (idx === q.correct) {
+
+                        baseClasses += "bg-emerald-50 border-emerald-500 text-emerald-900 font-semibold shadow-sm";
+
+                    } else if (idx === userChoices[currentIndex]) {
+
+                        baseClasses += "bg-rose-50 border-rose-400 text-rose-900 opacity-80";
+
+                    } else {
+
+                        baseClasses += "bg-slate-50 border-slate-200 text-slate-400 opacity-60";
+
+                    }
+
+                } else if (currentAttempt === 1 && idx === userChoices[currentIndex]) {
+
+                    // Option was previously chosen wrong on attempt 1
+
+                    btn.disabled = true;
+
+                    baseClasses += "bg-rose-50 border-rose-300 text-rose-800 opacity-60 cursor-not-allowed";
+
+                } else {
+
+                    // Active option
+
+                    baseClasses += "bg-white border-slate-200 hover:border-sky-400 hover:bg-sky-50/50 text-slate-800 shadow-sm hover:shadow";
+
+                }
+
+
+
+                btn.className = baseClasses;
+
+                btn.onclick = () => selectOption(idx);
+
+
+
+                // Option badge (A, B, C, D)
+
+                let badgeClass = "w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5 ";
+
+                if (currentAttempt === 2 && idx === q.correct) {
+
+                    badgeClass += "bg-emerald-600 text-white";
+
+                } else if ((currentAttempt === 2 || currentAttempt === 1) && idx === userChoices[currentIndex] && idx !== q.correct) {
+
+                    badgeClass += "bg-rose-500 text-white";
+
+                } else {
+
+                    badgeClass += "bg-slate-100 text-slate-600 border border-slate-200";
+
+                }
+
+
+
+                btn.innerHTML = `
+
+                    <span class="${badgeClass}">${optionLetters[idx]}</span>
+
+                    <span class="flex-grow leading-snug">${opt}</span>
+
+                `;
+
+
+
+                container.appendChild(btn);
+
+            });
+
+
+
+            // Update Feedback Box visibility
+
+            renderFeedbackState();
+
+
+
+            // Navigation buttons
+
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+
+            document.getElementById('prevBtn').className = currentIndex === 0 
+
+                ? "px-4 py-2 rounded-xl text-slate-300 font-semibold text-sm cursor-not-allowed flex items-center space-x-2"
+
+                : "px-4 py-2 rounded-xl text-slate-700 hover:bg-slate-100 font-semibold text-sm transition flex items-center space-x-2";
+
+
+
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (currentAttempt === 2) {
+
+                nextBtn.disabled = false;
+
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm shadow-md shadow-sky-200 transition flex items-center space-x-2";
+
+            } else {
+
+                nextBtn.disabled = true;
+
+                nextBtn.className = "px-5 py-2.5 rounded-xl bg-slate-200 text-slate-400 font-bold text-sm cursor-not-allowed transition flex items-center space-x-2";
+
+            }
+
+
+
+            // Update Top Stats
+
+            updateTopStats();
+
+        }
+
+
+
+        function selectOption(optionIndex) {
+
+            const q = questionsData[currentIndex];
+
+            const currentAttempt = attemptsState[currentIndex];
+
+
+
+            if (currentAttempt === 2) return; // Already completed
+
+
+
+            userChoices[currentIndex] = optionIndex;
+
+
+
+            if (optionIndex === q.correct) {
+
+                // CORRECT ANSWER!
+
+                playApplauseSound();
+
+                attemptsState[currentIndex] = 2; // Mark completed
+
+                if (currentAttempt === 0) {
+
+                    // Correct on 1st try!
+
+                    scores[currentIndex] = 2;
+
+                    firstTrySuccess[currentIndex] = true;
+
+                } else {
+
+                    // Correct on 2nd try!
+
+                    scores[currentIndex] = 1;
+
+                }
+
+
+
+                renderQuestion();
+
+
+
+            } else {
+
+                // INCORRECT ANSWER!
+
+                playWarningSound();
+
+                // Shake animation on chosen option
+
+                const btn = document.getElementById(`optBtn_${optionIndex}`);
+
+                if (btn) {
+
+                    btn.classList.add('shake-anim');
+
+                    setTimeout(() => btn.classList.remove('shake-anim'), 400);
+
+                }
+
+
+
+                if (currentAttempt === 0) {
+
+                    // First wrong attempt -> Give 2nd try
+
+                    attemptsState[currentIndex] = 1;
+
+                    renderQuestion();
+
+                } else {
+
+                    // Second wrong attempt -> Show answer and complete
+
+                    attemptsState[currentIndex] = 2;
+
+                    scores[currentIndex] = 0;
+
+                    renderQuestion();
+
+                }
+
+            }
+
+        }
+
+
+
+        function renderFeedbackState() {
+
+            const q = questionsData[currentIndex];
+
+            const currentAttempt = attemptsState[currentIndex];
+
+            const chosen = userChoices[currentIndex];
+
+
+
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            const iconBox = document.getElementById('feedbackIconBox');
+
+            const icon = document.getElementById('feedbackIcon');
+
+            const title = document.getElementById('feedbackTitle');
+
+            const detail = document.getElementById('feedbackDetail');
+
+            const explanationBox = document.getElementById('explanationBox');
+
+            const explanationText = document.getElementById('explanationText');
+
+
+
+            if (currentAttempt === 0) {
+
+                feedbackBox.classList.add('hidden');
+
+                explanationBox.classList.add('hidden');
+
+                return;
+
+            }
+
+
+
+            feedbackBox.classList.remove('hidden');
+
+
+
+            if (currentAttempt === 1) {
+
+                // Wrong on 1st try - Warning try again
+
+                feedbackBox.className = "rounded-xl p-4 sm:p-5 mb-6 bg-amber-50 border border-amber-200 text-amber-900 bounce-anim";
+
+                iconBox.className = "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-amber-500 text-white font-bold";
+
+                icon.className = "fa-solid fa-triangle-exclamation";
+
+                title.innerText = "Jawapan Kurang Tepat! Sila Cuba Lagi (Percubaan Ke-2)";
+
+                detail.innerText = "Jangan risau, baca soalan semula dengan teliti dan pilih jawapan pilihan kedua anda.";
+
+                explanationBox.classList.add('hidden');
+
+
+
+            } else if (currentAttempt === 2) {
+
+                // Completed question
+
+                explanationBox.classList.remove('hidden');
+
+                explanationText.innerText = q.explanation;
+
+
+
+                if (chosen === q.correct) {
+
+                    feedbackBox.className = "rounded-xl p-4 sm:p-5 mb-6 bg-emerald-50 border border-emerald-200 text-emerald-900 bounce-anim";
+
+                    iconBox.className = "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-emerald-600 text-white font-bold";
+
+                    icon.className = "fa-solid fa-circle-check";
+
+                    if (firstTrySuccess[currentIndex]) {
+
+                        title.innerText = "Tahniah! Jawapan Betul pada Percubaan Pertama! 🎉 (+2 Markah)";
+
+                        detail.innerText = "Kefahaman anda sangat mantap bagi topik ini.";
+
+                    } else {
+
+                        title.innerText = "Tepat Sekali pada Percubaan Ke-2! 👏 (+1 Markah)";
+
+                        detail.innerText = "Usaha yang bagus! Anda berjaya menemui jawapan yang betul.";
+
+                    }
+
+                } else {
+
+                    feedbackBox.className = "rounded-xl p-4 sm:p-5 mb-6 bg-rose-50 border border-rose-200 text-rose-900";
+
+                    iconBox.className = "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-rose-600 text-white font-bold";
+
+                    icon.className = "fa-solid fa-circle-xmark";
+
+                    title.innerText = `Jawapan Masih Salah (0 Markah)`;
+
+                    detail.innerText = `Jawapan yang betul ialah pusingan: ${q.options[q.correct]}`;
+
+                }
+
+            }
+
+        }
+
+
+
+        function updateTopStats() {
+
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+
+            const totalFirstTry = firstTrySuccess.filter(Boolean).length;
+
+
+
+            document.getElementById('currentScore').innerText = totalScore;
+
+            document.getElementById('firstTryCount').innerText = `${totalFirstTry} / 30`;
+
+        }
+
+
+
+        function nextQuestion() {
+
+            if (currentIndex < questionsData.length - 1) {
+
+                currentIndex++;
+
+                renderQuestion();
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            } else {
+
+                showResults();
+
+            }
+
+        }
+
+
+
+        function prevQuestion() {
+
+            if (currentIndex > 0) {
+
+                currentIndex--;
+
+                renderQuestion();
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            }
+
+        }
+
+
+
+        function showResults() {
+
+            document.getElementById('quizCard').classList.add('hidden');
+
+            document.getElementById('resultsCard').classList.remove('hidden');
+
+
+
+            const totalScore = scores.reduce((a, b) => a + b, 0); // Max 60
+
+            const totalFirstTry = firstTrySuccess.filter(Boolean).length; // Max 30
+
+
+
+            document.getElementById('finalScore').innerText = `${totalScore} / 60`;
+
+            document.getElementById('finalFirstTry').innerText = `${totalFirstTry} / 30`;
+
+
+
+            // Calculate Grade & Guru Comment
+
+            let grade = "";
+
+            let comment = "";
+
+
+
+            if (totalScore >= 50) {
+
+                grade = "Cemerlang Tertinggi ⭐⭐⭐";
+
+                comment = "<strong>Ulasan Guru Pakar:</strong> Tahniah! Anda mempunyai penguasaan Pengetahuan Am PKSK yang amat cemerlang! Daya ingatan dan pemahaman anda terhadap tokoh-tokoh pejuang, kemerdekaan, serta pencapaian negara berada pada tahap tertinggi untuk melayakkan diri ke Sekolah Khusus.";
+
+            } else if (totalScore >= 38) {
+
+                grade = "Keputusan Baik 👍";
+
+                comment = "<strong>Ulasan Guru Pakar:</strong> Syabas! Keputusan anda sangat baik. Teruskan mengulangkaji beberapa fakta sejarah tokoh dan jaguh sukan untuk memastikan markah penuh semasa ujian PKSK sebenar.";
+
+            } else if (totalScore >= 25) {
+
+                grade = "Tahap Sederhana 💡";
+
+                comment = "<strong>Ulasan Guru Pakar:</strong> Anda berada di tahap sederhana. Disyorkan membaca semula nota ulasan jawapan guru pakar dan membuat latihan semula untuk mengukuhkan memori.";
+
+            } else {
+
+                grade = "Perlu Perbaikan 📚";
+
+                comment = "<strong>Ulasan Guru Pakar:</strong> Jangan putus asa! Pengetahuan Am memerlukan latihan berterusan. Sila buat ulangkaji menyeluruh bagi tokoh-tokoh pejuang tanah air dan cuba modul ini sekali lagi.";
+
+            }
+
+
+
+            document.getElementById('finalGrade').innerText = grade;
+
+            document.getElementById('guruComment').innerHTML = comment;
+
+
+
+            playApplauseSound();
+
+        }
+
+
+
+        function restartQuiz() {
+
+            currentIndex = 0;
+
+            attemptsState = new Array(questionsData.length).fill(0);
+
+            userChoices = new Array(questionsData.length).fill(null);
+
+            scores = new Array(questionsData.length).fill(0);
+
+            firstTrySuccess = new Array(questionsData.length).fill(false);
+
+
+
+            document.getElementById('resultsCard').classList.add('hidden');
+
+            document.getElementById('quizCard').classList.remove('hidden');
+
+
+
+            renderQuestion();
+
+        }
+
+
+
+        function confirmRestart() {
+
+            if (confirm("Adakah anda pasti ingin memulakan semula soalan dari awal?")) {
+
+                restartQuiz();
+
+            }
+
+        }
+
+
+
+        function toggleGridModal() {
+
+            const modal = document.getElementById('gridModal');
+
+            const isHidden = modal.classList.contains('hidden');
+
+
+
+            if (isHidden) {
+
+                renderGridButtons();
+
+                modal.classList.remove('hidden');
+
+            } else {
+
+                modal.classList.add('hidden');
+
+            }
+
+        }
+
+
+
+        function renderGridButtons() {
+
+            const gridContainer = document.getElementById('questionGridBtns');
+
+            gridContainer.innerHTML = '';
+
+
+
+            questionsData.forEach((q, idx) => {
+
+                const btn = document.createElement('button');
+
+                const state = attemptsState[idx];
+
+                const choice = userChoices[idx];
+
+                const isCorrectFirst = firstTrySuccess[idx];
+
+
+
+                let bgClass = "bg-slate-100 text-slate-700 border-slate-300";
+
+
+
+                if (state === 2) {
+
+                    if (choice === q.correct) {
+
+                        if (isCorrectFirst) {
+
+                            bgClass = "bg-emerald-500 text-white border-emerald-600 font-bold";
+
+                        } else {
+
+                            bgClass = "bg-amber-400 text-amber-950 border-amber-500 font-bold";
+
+                        }
+
+                    } else {
+
+                        bgClass = "bg-rose-500 text-white border-rose-600 font-bold";
+
+                    }
+
+                } else if (state === 1) {
+
+                    bgClass = "bg-amber-100 text-amber-800 border-amber-300 font-semibold";
+
+                }
+
+
+
+                if (idx === currentIndex) {
+
+                    bgClass += " ring-2 ring-sky-600 ring-offset-2";
+
+                }
+
+
+
+                btn.className = `h-10 rounded-lg text-xs border flex items-center justify-center transition hover:opacity-80 ${bgClass}`;
+
+                btn.innerText = idx + 1;
+
+                btn.onclick = () => {
+
+                    currentIndex = idx;
+
+                    renderQuestion();
+
+                    toggleGridModal();
+
+                };
+
+
+
+                gridContainer.appendChild(btn);
+
+            });
+
+        }
+
+
+
+        // Initialize quiz on window load
+
+        window.onload = function() {
+
+            renderQuestion();
+
+        };
+
+    </script>
+
+</body>
+
+</html>
